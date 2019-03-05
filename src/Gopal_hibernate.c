@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 			for (volatile uint32_t i = 0; i < 1000000; i++);
 			for (volatile uint32_t i = 0; i < 1000000; i++);
 			for (volatile uint32_t i = 0; i < 1000000; i++);
-			for (volatile uint32_t i = 0; i < 1000000; i++);
+
 			adi_pwr_EnterLowPowerMode(ADI_PWR_MODE_HIBERNATE, &bHibernateExitFlag, 0);
 		}
 
