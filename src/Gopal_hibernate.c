@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	adi_gpio_Init(gpioMemory, ADI_GPIO_MEMORY_SIZE);
 
 	/* call back for WAKE0 (P0.15: pushbutton) and pin interrupt setting */
-	    //adi_gpio_InputEnable(ADI_GPIO_PORT0, ADI_GPIO_PIN_15, true);
+	    adi_gpio_InputEnable(ADI_GPIO_PORT0, ADI_GPIO_PIN_15, true);
 	/* set GPIO input */
 		if(ADI_GPIO_SUCCESS != (eResult = adi_gpio_InputEnable(PB1_PORT_NUM, PB1_PIN_NUM, true)))
 		{
@@ -75,12 +75,17 @@ int main(int argc, char *argv[])
 
 		/* reset volatiles */
 		    bHibernateExitFlag = false;
-
+		//bHibernateExitFlag = NULL; //sleep on exit
 	/* enter full hibernate with wakeup flag with no interrupt masking */
 		/* (will not return until exit flag is set in the interrupt handler) */
 		adi_pwr_EnterLowPowerMode(ADI_PWR_MODE_HIBERNATE, &bHibernateExitFlag, 0);
 
-		while(1);
+		while(1){
+			for (volatile uint32_t i = 0; i < 1000000; i++);
+			for (volatile uint32_t i = 0; i < 1000000; i++);
+			for (volatile uint32_t i = 0; i < 1000000; i++);
+			adi_pwr_EnterLowPowerMode(ADI_PWR_MODE_HIBERNATE, &bHibernateExitFlag, 0);
+		}
 
 	return 0;
 }
